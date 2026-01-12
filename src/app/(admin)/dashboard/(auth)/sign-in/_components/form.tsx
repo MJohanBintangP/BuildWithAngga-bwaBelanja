@@ -19,10 +19,21 @@ import { Input } from "@/components/ui/input";
 import { SignIn } from "../lib/actions";
 import { ActionResult } from "@/types";
 import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 
 const initialState: ActionResult = {
   error: "",
 };
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button disabled={pending} type="submit">
+      {pending ? "Loading..." : "Sign In"}
+    </Button>
+  );
+}
 
 export function LoginForm({
   className,
@@ -48,7 +59,6 @@ export function LoginForm({
                   id="email"
                   type="email"
                   placeholder="m@example.com"
-                  required
                 />
               </Field>
               <Field>
@@ -61,13 +71,10 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input name="password" id="password" type="password" required />
+                <Input name="password" id="password" type="password" />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
-                <Button variant="outline" type="button">
-                  Login with Google
-                </Button>
+                <SubmitButton />
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <a href="#">Sign up</a>
                 </FieldDescription>
