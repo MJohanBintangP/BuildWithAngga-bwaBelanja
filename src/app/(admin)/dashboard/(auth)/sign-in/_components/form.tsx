@@ -15,6 +15,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { SignIn } from "../lib/actions";
 import { ActionResult } from "@/types";
@@ -50,6 +51,12 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {state.error !== "" && (
+            <Alert className="mb-4" variant="destructive">
+              <AlertTitle>Login failed</AlertTitle>
+              <AlertDescription>{state.error}</AlertDescription>
+            </Alert>
+          )}
           <form action={formAction}>
             <FieldGroup>
               <Field>
